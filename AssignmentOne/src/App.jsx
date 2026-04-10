@@ -1,26 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import './App.css'
-import Greeting from './components/greeting'
-import UserInfo from './components/userinfo'
-import TaskForm from './components/TaskForm'
-import TaskList from './components/tasklist'
+import Login from "./components/login"
+import Signup from "./components/signup"
+import Dashboard from "./dashboard"
+import {useAuth} from "./UserContext"
+import ProtectedRoute from './components/protected'
+import TaskListPage from './tasklistpage'
 
 function App() {
+  const {logout, user} = useAuth()
   const handleClick = () => {
     alert("Hello User!")
   }
 
   return (
-    <div style={{width: 800, display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 10}}>
-      <Greeting username={"Morgan"}></Greeting>
-      <Greeting username={"John"}></Greeting>
+    <BrowserRouter>
+        <div>
+          {
+            user ? <button onClick={()=>{
+            logout()
+          }}>Logout</button> : <></>
+          }
+        </div>
+        <Routes>
+          <Route path="/" element={<ProtectedRoute><Dashboard></Dashboard></ProtectedRoute>}></Route>
+          <Route path="/login" element={<Login></Login>}></Route>
+          <Route path="/signup" element={<Signup></Signup>}></Route>
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard></Dashboard></ProtectedRoute>}></Route>
+          <Route path="/tasklist" element={<ProtectedRoute><TaskListPage></TaskListPage></ProtectedRoute>}></Route>
 
-
-      <UserInfo handleClick={handleClick}></UserInfo>
-      <TaskList></TaskList>
-    </div>
+        </Routes>
+    </BrowserRouter>
   )
 
   

@@ -1,6 +1,6 @@
-import react, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import styles from "./shared.module.css"
-export default function UserInfo({handleClick}) {
+export default function UserInfo({handleClick, logout}) {
     const [userDetails, setUserDetails] = useState({
         username: "Morgan P",
         profession: "ADET Instructor"
@@ -17,6 +17,7 @@ export default function UserInfo({handleClick}) {
             <h2>{userDetails.username}</h2>
             <h3>{userDetails.profession}</h3>
             <button onClick={handleClick}>Show Alert</button>
+            <button onClick={logout}>Logout</button>
 
            <div className={styles.flexRow}>
              <p>Your lucky number is {luckyNumber}</p>

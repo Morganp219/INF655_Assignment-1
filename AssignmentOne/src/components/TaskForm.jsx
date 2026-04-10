@@ -13,7 +13,7 @@ export default function TaskForm({taskAddEvent}) {
             return;
         }
         console.log(taskName);
-        taskAddEvent(taskName)
+        taskAddEvent(taskName, taskDesc)
         
     }
 
